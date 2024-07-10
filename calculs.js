@@ -114,6 +114,73 @@ function genererSerieMixte(multiplicateursEtDiviseurs) {
     return Array.from(resultats);
 }
 
+// Fonction pour générer la série de multiplications par 2, 4, 8, 0.5 ou 0.25
+function genererSerieMultiplicationsParMultipleDe2(multiplicateurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const nombreDeChiffres = nombreAleatoireEntierEntre(0, 3);
+        const multiplicateur = multiplicateurs[Math.floor(Math.random() * multiplicateurs.length)];
+        const nombre = division(nombreAleatoireEntier(nombreDeChiffres), multiplicateur);
+        const resultat = parseFloat((multiplication(nombre, multiplicateur)).toFixed(6));
+
+        const calcul = `${nombre} x ${multiplicateur} = ${resultat}`;
+        if (!resultats.has(calcul)) {
+            resultats.add(calcul);
+        }
+    }
+
+    return Array.from(resultats);
+}
+
+// Fonction pour générer la série de divisions par 2, 4, 8, 0.5 ou 0.25
+function genererSerieDivisionsParMultipleDe2(diviseurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const nombreDeChiffres = nombreAleatoireEntierEntre(0, 3);
+        const diviseur = diviseurs[Math.floor(Math.random() * diviseurs.length)];
+        const nombre = multiplication(nombreAleatoireEntier(nombreDeChiffres), diviseur);
+        const resultat = parseFloat((division(nombre, diviseur)).toFixed(6));
+
+        const calcul = `${nombre} ÷ ${diviseur} = ${resultat}`;
+        if (!resultats.has(calcul)) {
+            resultats.add(calcul);
+        }
+    }
+
+    return Array.from(resultats);
+}
+
+// Fonction pour générer la série mixte (multiplication et division)
+function genererSerieMixteMultipleDe2(multiplicateursEtDiviseurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const nombreDeChiffres = nombreAleatoireEntierEntre(0, 3);
+        const multiplicateurOuDiviseur = multiplicateursEtDiviseurs[Math.floor(Math.random() * multiplicateursEtDiviseurs.length)];
+
+        const multiplicationOuDivision = Math.random();
+
+        if (multiplicationOuDivision < 0.5) {
+            const nombre = division(nombreAleatoireEntier(nombreDeChiffres), multiplicateurOuDiviseur);
+            const resultat = parseFloat((multiplication(nombre, multiplicateurOuDiviseur)).toFixed(6));
+            const calcul = `${nombre} x ${multiplicateurOuDiviseur} = ${resultat}`;
+            if (!resultats.has(calcul)) {
+                resultats.add(calcul);
+            }
+        } else {
+            const nombre = multiplication(nombreAleatoireEntier(nombreDeChiffres), multiplicateurOuDiviseur);
+            const resultat = parseFloat((division(nombre, multiplicateurOuDiviseur)).toFixed(6));
+            const calcul = `${nombre} ÷ ${multiplicateurOuDiviseur} = ${resultat}`;
+            if (!resultats.has(calcul)) {
+                resultats.add(calcul);
+            }
+        }
+    }
+    return Array.from(resultats);
+}
+
 // Fonction pour générer les séries pour les 6èmes
 function genererSeries6EMES() {
     const series = [
@@ -123,7 +190,14 @@ function genererSeries6EMES() {
         genererSerieDivision([0.1, 0.01]),
         genererSerieMultiplication([10, 100, 1000, 0.1, 0.01]),
         genererSerieDivision([10, 100, 1000, 0.1, 0.01]),
-        genererSerieMixte([10, 100, 1000, 0.1, 0.01])
+        genererSerieMixte([10, 100, 1000, 0.1, 0.01]),
+        genererSerieMultiplicationsParMultipleDe2([2, 4, 8]),
+        genererSerieMultiplicationsParMultipleDe2([0.5, 0.25]),
+        genererSerieDivisionsParMultipleDe2([2, 4, 8]),
+        genererSerieDivisionsParMultipleDe2([0.5, 0.25]),
+        genererSerieMultiplicationsParMultipleDe2([2, 4, 8, 0.5, 0.25]),
+        genererSerieDivisionsParMultipleDe2([2, 4, 8, 0.5, 0.25]),
+        genererSerieMixteMultipleDe2([2, 4, 8, 0.5, 0.25])
     ];
 
     series.forEach((serie, index) => {

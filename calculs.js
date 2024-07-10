@@ -20,11 +20,6 @@ function division(a, b) {
     }
 }
 
-// Fonction pour arrondir un nombre
-function arrondir(nombre) {
-    return Math.round(nombre);
-}
-
 // Fonction pour générer un nombre entier aléatoire avec un nombre de chiffres spécifié
 function nombreAleatoireEntier(chiffres) {
     const min = Math.pow(10, chiffres - 1);
@@ -42,4 +37,98 @@ function nombreAleatoireVirgule(chiffresAvantVirgule, chiffresApresVirgule) {
     const entier = nombreAleatoireEntier(chiffresAvantVirgule);
     const decimal = Math.random().toFixed(chiffresApresVirgule).split('.')[1];
     return parseFloat(`${entier}.${decimal}`);
+}
+
+// Fonction pour générer une série de calculs de multiplication avec réponse
+// Série 1 : genererSerieMultiplication([10, 100, 1000]);
+// Série 2 : genererSerieMultiplication([0.1, 0.01]);
+// Série 5 : genererSerieMultiplication([10, 100, 1000, 0.1, 0.01]);
+function genererSerieMultiplication(multiplicateurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const chiffresAvantVirgule = nombreAleatoireEntierEntre(0, 3);
+        const chiffresApresVirgule = nombreAleatoireEntierEntre(0, 3);
+        const nombre = nombreAleatoireVirgule(chiffresAvantVirgule, chiffresApresVirgule);
+        const multiplicateur = multiplicateurs[Math.floor(Math.random() * multiplicateurs.length)];
+        const resultat = parseFloat((multiplication(nombre, multiplicateur)).toFixed(6));
+
+        const calcul = `${nombre} x ${multiplicateur} = ${resultat}`;
+        if (!resultats.has(calcul)) {
+            resultats.add(calcul);
+        }
+    }
+
+    return Array.from(resultats);
+}
+
+// Fonction pour générer une série de calculs de division avec réponse
+// Série 3 : genererSerieDivision([10, 100, 1000]);
+// Série 4 : genererSerieDivision([0.1, 0.01]);
+// Série 6 : genererSerieDivision([10, 100, 1000, 0.1, 0.01]);
+function genererSerieDivision(diviseurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const chiffresAvantVirgule = nombreAleatoireEntierEntre(0, 3);
+        const chiffresApresVirgule = nombreAleatoireEntierEntre(0, 3);
+        const nombre = nombreAleatoireVirgule(chiffresAvantVirgule, chiffresApresVirgule);
+        const diviseur = diviseurs[Math.floor(Math.random() * diviseurs.length)];
+        const resultat = parseFloat((division(nombre, diviseur)).toFixed(6));
+
+        const calcul = `${nombre} ÷ ${diviseur} = ${resultat}`;
+        if (!resultats.has(calcul)) {
+            resultats.add(calcul);
+        }
+    }
+
+    return Array.from(resultats);
+}
+
+// Fonction pour générer la série mixte (multiplication et division)
+function genererSerieMixte(multiplicateursEtDiviseurs) {
+    const resultats = new Set();
+
+    while (resultats.size < 10) {
+        const chiffresAvantVirgule = nombreAleatoireEntierEntre(0, 3);
+        const chiffresApresVirgule = nombreAleatoireEntierEntre(0, 3);
+        const nombre = nombreAleatoireVirgule(chiffresAvantVirgule, chiffresApresVirgule);
+        const multiplicateurOuDiviseur = multiplicateursEtDiviseurs[Math.floor(Math.random() * multiplicateursEtDiviseurs.length)];
+
+        const multiplicationOuDivision = Math.random();
+
+        if (multiplicationOuDivision < 0.5) {
+            const resultat = parseFloat((multiplication(nombre, multiplicateurOuDiviseur)).toFixed(6));
+            const calcul = `${nombre} x ${multiplicateurOuDiviseur} = ${resultat}`;
+            if (!resultats.has(calcul)) {
+                resultats.add(calcul);
+            }
+        } else {
+            const resultat = parseFloat((division(nombre, multiplicateurOuDiviseur)).toFixed(6));
+            const calcul = `${nombre} ÷ ${multiplicateurOuDiviseur} = ${resultat}`;
+            if (!resultats.has(calcul)) {
+                resultats.add(calcul);
+            }
+        }
+    }
+    return Array.from(resultats);
+}
+
+// Fonction pour générer les séries pour les 6èmes
+function genererSeries6EMES() {
+    const series = [
+        genererSerieMultiplication([10, 100, 1000]),
+        genererSerieMultiplication([0.1, 0.01]),
+        genererSerieDivision([10, 100, 1000]),
+        genererSerieDivision([0.1, 0.01]),
+        genererSerieMultiplication([10, 100, 1000, 0.1, 0.01]),
+        genererSerieDivision([10, 100, 1000, 0.1, 0.01]),
+        genererSerieMixte([10, 100, 1000, 0.1, 0.01])
+    ];
+
+    series.forEach((serie, index) => {
+        console.log(`Série numéro ${index + 1} :`);
+        serie.forEach(calcul => console.log(calcul));
+        console.log("---------------"); // Ligne vide pour séparer les séries
+    });
 }

@@ -43,8 +43,26 @@ a, a:hover {
     color: #333;
 }
 
+.btn-next, .btn-next:hover, .btn-reponses, .btn-reponses:hover {
+    font-size: 3em;
+    color: #333;
+    background-color: #f0f0f0;
+    border-color: #333;
+}
+
 .list-series {
     font-size: 2em;
     color: #333;
     line-height: 2em;
+}
+
+#serie-title {
+    font-size: 5em;
+    color: #333;
+}
+
+#calcul-container p {
+    font-size: 8em;
+    font-weight: bold;
+    color: #333;
 }

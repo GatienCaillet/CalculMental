@@ -181,6 +181,40 @@ function genererSerieMixteMultipleDe2(multiplicateursEtDiviseurs) {
     return Array.from(resultats);
 }
 
+
+// Fonction pour générer une série de 10 calculs avec des sommes entières et 3 additions à chaque fois
+function genererSerieSommeEntiere() {
+    const resultats = new Set();
+
+    for (let i = 0; i < 10; i++) {
+        let nombres = [];
+        let somme = 0;
+
+        for (let j = 0; j < 3; j++) { // 3 nombres aléatoires
+            const nombreDeChiffresAvantLaVirgule = nombreAleatoireEntierEntre(0, 2);
+            const nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
+            nombres.push(nombre);
+            somme += nombre;
+        }
+
+        let dernierNombre = soustraction(Math.round(somme), somme);
+        if( dernierNombre < 0) {
+            dernierNombre = addition(1, dernierNombre);
+        }
+        if (dernierNombre == 0) {
+            dernierNombre = nombreAleatoireEntierEntre(1, 99);
+        }
+        nombres.push(parseFloat(dernierNombre.toFixed(1))); // Ajoute le dernier nombre pour que la somme soit entière
+        
+        const calcul = nombres.join(' + ') + ' = ' + addition(somme, dernierNombre)
+        if (!resultats.has(calcul)) {
+            resultats.add(calcul);
+        }
+    }
+
+    return Array.from(resultats);;
+}
+
 // Fonction pour générer les séries pour les 6èmes
 function genererSeries6EMES() {
     const series = [
@@ -197,7 +231,8 @@ function genererSeries6EMES() {
         genererSerieDivisionsParMultipleDe2([0.5, 0.25]),
         genererSerieMultiplicationsParMultipleDe2([2, 4, 8, 0.5, 0.25]),
         genererSerieDivisionsParMultipleDe2([2, 4, 8, 0.5, 0.25]),
-        genererSerieMixteMultipleDe2([2, 4, 8, 0.5, 0.25])
+        genererSerieMixteMultipleDe2([2, 4, 8, 0.5, 0.25]),
+        genererSerieSommeEntiere()
     ];
 
     series.forEach((serie, index) => {

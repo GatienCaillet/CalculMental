@@ -181,7 +181,7 @@ function genererSerieMixteMultipleDe2(multiplicateursEtDiviseurs) {
     return Array.from(resultats);
 }
 
-// Fonction pour générer une série de 10 calculs avec des sommes entières et 3 additions à chaque fois
+// Fonction pour générer une série de 10 calculs avec des sommes astucieuses
 function genererSerieSommeEntiere() {
     const resultats = new Set();
 
@@ -192,12 +192,12 @@ function genererSerieSommeEntiere() {
         for (let j = 0; j < 2; j++) {
             const nombreAleatoireEntier2Chiffres = nombreAleatoireEntier(2);
             const nombreDeChiffresAvantLaVirgule = nombreAleatoireEntierEntre(0, 1);
-            let nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
+            let nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1).toFixed(1);
 
             while (nombreAleatoireEntier2Chiffres < nombre) {
-                nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
+                nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1).toFixed(1);
             }
-            let nombre2 = nombreAleatoireEntier2Chiffres - nombre;
+            let nombre2 = soustraction(nombreAleatoireEntier2Chiffres, nombre).toFixed(1);
             nombres.push(nombre);
             nombres.push(nombre2);
             somme += addition(nombre, nombre2);

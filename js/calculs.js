@@ -20,6 +20,15 @@ function division(a, b) {
     }
 }
 
+// Fonction pour mélanger une liste
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 // Fonction pour générer un nombre entier aléatoire avec un nombre de chiffres spécifié
 function nombreAleatoireEntier(chiffres) {
     const min = Math.pow(10, chiffres - 1);
@@ -189,19 +198,33 @@ function genererSerieSommeEntiere() {
         let nombres = [];
         let somme = 0;
 
-        for (let j = 0; j < 2; j++) {
-            const nombreAleatoireEntier2Chiffres = nombreAleatoireEntier(2);
-            const nombreDeChiffresAvantLaVirgule = nombreAleatoireEntierEntre(0, 1);
-            let nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1).toFixed(1);
+        const nombreAleatoireEntier2Chiffres1 = nombreAleatoireEntier(2);
+        const nombreDeChiffresAvantLaVirgule1 = nombreAleatoireEntierEntre(0, 1);
+        let nombre1 = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule1, 1).toFixed(1);
 
-            while (nombreAleatoireEntier2Chiffres < nombre) {
-                nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1).toFixed(1);
-            }
-            let nombre2 = soustraction(nombreAleatoireEntier2Chiffres, nombre).toFixed(1);
-            nombres.push(nombre);
-            nombres.push(nombre2);
-            somme += addition(nombre, nombre2);
+        while (nombreAleatoireEntier2Chiffres1 < nombre1) {
+            nombre1 = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule1, 1).toFixed(1);
         }
+        let nombre2 = soustraction(nombreAleatoireEntier2Chiffres1, nombre1).toFixed(1);
+
+        const nombreAleatoireEntier2Chiffres3 = nombreAleatoireEntier(2);
+        const nombreDeChiffresAvantLaVirgule3 = nombreAleatoireEntierEntre(0, 1);
+        let nombre3 = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule3, 1).toFixed(1);
+
+        while (nombreAleatoireEntier2Chiffres3 < nombre3) {
+            nombre1 = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule3, 1).toFixed(1);
+        }
+        let nombre4 = soustraction(nombreAleatoireEntier2Chiffres3, nombre3).toFixed(1);
+        
+        nombres.push(nombre1);
+        nombres.push(nombre2);
+        nombres.push(nombre3);
+        nombres.push(nombre4);
+        nombres = shuffle(nombres);
+        
+        somme += addition(nombre1, nombre2);
+        somme += addition(nombre3, nombre4);
+
         const calcul = nombres.join(' + ') + ' = ' + somme;
 
         if (!resultats.has(calcul)) {

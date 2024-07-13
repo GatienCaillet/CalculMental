@@ -181,7 +181,6 @@ function genererSerieMixteMultipleDe2(multiplicateursEtDiviseurs) {
     return Array.from(resultats);
 }
 
-
 // Fonction pour générer une série de 10 calculs avec des sommes entières et 3 additions à chaque fois
 function genererSerieSommeEntiere() {
     const resultats = new Set();
@@ -190,29 +189,27 @@ function genererSerieSommeEntiere() {
         let nombres = [];
         let somme = 0;
 
-        for (let j = 0; j < 3; j++) { // 3 nombres aléatoires
-            const nombreDeChiffresAvantLaVirgule = nombreAleatoireEntierEntre(0, 2);
-            const nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
-            nombres.push(nombre);
-            somme += nombre;
-        }
+        for (let j = 0; j < 2; j++) {
+            const nombreAleatoireEntier2Chiffres = nombreAleatoireEntier(2);
+            const nombreDeChiffresAvantLaVirgule = nombreAleatoireEntierEntre(0, 1);
+            let nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
 
-        let dernierNombre = soustraction(Math.round(somme), somme);
-        if( dernierNombre < 0) {
-            dernierNombre = addition(1, dernierNombre);
+            while (nombreAleatoireEntier2Chiffres < nombre) {
+                nombre = nombreAleatoireVirgule(nombreDeChiffresAvantLaVirgule, 1);
+            }
+            let nombre2 = nombreAleatoireEntier2Chiffres - nombre;
+            nombres.push(nombre);
+            nombres.push(nombre2);
+            somme += addition(nombre, nombre2);
         }
-        if (dernierNombre == 0) {
-            dernierNombre = nombreAleatoireEntierEntre(1, 99);
-        }
-        nombres.push(parseFloat(dernierNombre.toFixed(1))); // Ajoute le dernier nombre pour que la somme soit entière
-        
-        const calcul = nombres.join(' + ') + ' = ' + addition(somme, dernierNombre)
+        const calcul = nombres.join(' + ') + ' = ' + somme;
+
         if (!resultats.has(calcul)) {
             resultats.add(calcul);
         }
     }
 
-    return Array.from(resultats);;
+    return Array.from(resultats);
 }
 
 // Fonction pour générer les séries pour les 6èmes
